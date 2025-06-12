@@ -61,6 +61,8 @@
 #include "discord.h"
 #include "loading_screen.h"
 
+#include "base/create_process.h"
+
 namespace mmo
 {
 	const std::string WorldState::Name = "world";
@@ -3198,6 +3200,8 @@ namespace mmo
 		if (!deserializer.Read(reader))
 		{
 			ELOG("Failed to read world '" << assetPath << ".hwld'!");
+			mmo::createProcess("./mmo_error.exe", { assetPath + ".hwld", "./Logs/Client.log"});
+			exit(0);
 			return false;
 		}
 
